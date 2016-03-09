@@ -1,0 +1,17 @@
+#main_canvas {
+  display: block;
+}
+
+#canvas_wrapper {
+  visibility: hidden;
+}
+body{
+  overflow: hidden;
+}
+#main_wrapper {
+
+}
+
+* {
+  unselectable: on;
+}
