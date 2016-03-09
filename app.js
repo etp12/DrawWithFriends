@@ -1,17 +1,45 @@
 var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+var cluster = require('cluster');
+
 
 server.listen(3000);
-
-var current_games = ['first'];
+var current_games = [];
+var players = [];
+var num_players = 0;
 
 io.on('connection', function(socket) {
+  var socket_server;
+  var nickname;
+
   socket.emit('current_games', {current_games});
-  socket.on('create_server', function(name) {
-    //create server with the name
+  socket.on('player_join', function(data) {
+    nickname = data.nickname;
+    players.push(nickname);
+    socket.emit('id', {num_players});
+    socket.emit('other_players', {players})
+    io.emit('new_player', {num_players, nickname});
+    num_players++;
+  });
+
+  socket.on('mousemove', function(data) {
+    var name = data.client_name;
+    var left_pos = data.left_pos;
+    var top_pos = data.top_pos;
+
+    io.emit('update_mouse', {name, left_pos, top_pos});
+  });
+
+  socket.on('isDrawing', function(data) {
+    io.emit('update_screen', {data});
+  });
+
+  socket.on('disconnect', function() {
+    io.emit('discon', {nickname});
   });
 });
+
 
 app.get('/', function(req, res) {
   res.sendFile(__dirname + '/index.html');
