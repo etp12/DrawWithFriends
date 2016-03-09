@@ -2,14 +2,16 @@
 var socket = io.connect('http://localhost:3000');
 socket.on('current_games', function(data) {
 //list current server to user
-  data.forEach(function(d) {
-    //add to a drop down
+  data.current_games.forEach(function(d) {
+    //list
+    console.log(d);
   });
 });
 
 function createServer() {
 //creates a new server creation request
-socket.emit('create_server', {$("#server_name")[0].value});
+  var server_name = $("#server_name")[0].value;
+  socket.emit('create_server', {server_name});
 
 }
 

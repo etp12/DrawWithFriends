@@ -8,20 +8,23 @@ var current_games = ['first'];
 
 io.on('connection', function(socket) {
   socket.emit('current_games', {current_games});
+  socket.on('create_server', function(name) {
+    //create server with the name
+  });
 });
 
 app.get('/', function(req, res) {
-  res.sendfile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/index.html');
 });
 
 app.get('/style/index.css', function(req, res) {
-  res.sendfile(__dirname + '/style/index.css');
+  res.sendFile(__dirname + '/style/index.css');
 });
 
 app.get('/scripts/client_draw.js', function(req, res) {
-  res.sendfile(__dirname + '/scripts/client_draw.js');
+  res.sendFile(__dirname + '/scripts/client_draw.js');
 });
 
 app.get('/scripts/index.js', function(req, res) {
-  res.sendfile(__dirname + '/scripts/index.js');
+  res.sendFile(__dirname + '/scripts/index.js');
 });
