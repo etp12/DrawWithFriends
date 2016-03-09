@@ -8,6 +8,9 @@
 
     <div id = "main_wrapper">
       <p>Select a room... </p>
+      Nickname: <input type="text" id="nickname"> <br>
+      <p id = "error_nickname"> Please enter a valid nickname! </p>
+      <button id="play" onclick="play()"> Play </button>
     </div>
 
     <div id = "canvas_wrapper">
@@ -20,5 +23,6 @@
     <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     <script src="scripts/client_draw.js"></script>
+    <script src="scripts/index.js"></script>
   </body>
 </html>

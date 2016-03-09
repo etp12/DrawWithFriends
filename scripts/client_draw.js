@@ -1,19 +1,24 @@
+//client-sided draw logic
+
 var canvas = document.getElementById('main_canvas');
 var context = canvas.getContext('2d');
 
 var player_cursors = [];
-
+var client_name = "YOU";
 //temporary
-setTimeout(function() {
+function display_game(nickname) {
+  client_name = nickname;
   $("#canvas_wrapper").css({visibility:'visible'});
   $("#main_wrapper").css({visibility:'hidden'});
-}, 1000);
+
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 //TODO: On Connect..
-player_cursors[0] = $("<p id='client'> You </p>");
+player_cursors[0] = $("<p id='client'>" + client_name + " </p>");
+
+
 $("#canvas_wrapper").append(player_cursors[0]);
 $(document).mousemove(function(e) {
   var left_pos = e.pageX, top_pos = e.pageY-50;
@@ -41,3 +46,4 @@ function draw(e) {
 $("#main_canvas").on('mousedown', function(e){isDragging=true; e.preventDefault();});
 $("#main_canvas").on('mouseup', function(){isDragging=false; context.beginPath();});
 $("#main_canvas").on('mousemove', draw);
+}
