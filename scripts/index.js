@@ -1,5 +1,5 @@
 //socket io and nickname selection
-var socket = io.connect('http://localhost');
+var socket = io();
 socket.on('current_games', function(data) {
 //list current server to user
   data.current_games.forEach(function(server, i, arr) {

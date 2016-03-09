@@ -1,18 +1,16 @@
 var app = require('express')();
-var server = require('http').Server(app);
+var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var cluster = require('cluster');
 
+var port = (process.env.PORT || '3000');
+app.set('port', port);
 
-server.listen(process.env.PORT || 3000);
+server.listen(port);
+
 var current_games = [];
 var players = [];
 var num_players = 0;
-
-io.configure(function () {
-  io.set("transports", ["xhr-polling"]);
-  io.set("polling duration", 20);
-});
 
 io.on('connection', function(socket) {
   var socket_server;
