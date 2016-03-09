@@ -4,7 +4,7 @@ var io = require('socket.io')(server);
 var cluster = require('cluster');
 
 
-server.listen(3000);
+server.listen(process.env.PORT || 3000);
 var current_games = [];
 var players = [];
 var num_players = 0;

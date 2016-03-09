@@ -20,5 +20,7 @@
   "bugs": {
     "url": "https://github.com/etp12/DrawWithFriends/issues"
   },
-  "homepage": "https://github.com/etp12/DrawWithFriends#readme"
+  "homepage": "https://github.com/etp12/DrawWithFriends#readme",
+  "devDependencies": {},
+  "keywords": []
 }
