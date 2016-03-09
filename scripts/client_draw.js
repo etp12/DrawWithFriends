@@ -21,7 +21,7 @@ player_cursors[0] = $("<p id='client'>" + client_name + " </p>");
 
 $("#canvas_wrapper").append(player_cursors[0]);
 $(document).mousemove(function(e) {
-  var left_pos = e.pageX, top_pos = e.pageY-50;
+  var left_pos = e.clientX, top_pos = e.clientY-50;
   $('#client').css({left:left_pos, top:top_pos, position:'absolute'});
 });
 
@@ -33,13 +33,13 @@ var isDragging = false;
 context.lineWidth = radius*2;
 function draw(e) {
   if(isDragging) {
-    context.lineTo(e.pageX-offsetLeft, e.pageY-offsetTop);
+    context.lineTo(e.clientX-offsetLeft, e.clientY-offsetTop);
     context.stroke();
     context.beginPath();
-    context.arc(e.pageX-offsetLeft, e.pageY-offsetTop, radius, 0, Math.PI*2);
+    context.arc(e.clientX-offsetLeft, e.clientY-offsetTop, radius, 0, Math.PI*2);
     context.fill();
     context.beginPath();
-    context.moveTo(e.pageX-offsetLeft, e.pageY-offsetTop);
+    context.moveTo(e.clientX-offsetLeft, e.clientY-offsetTop);
   }
 }
 
