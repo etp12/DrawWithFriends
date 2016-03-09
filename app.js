@@ -9,6 +9,11 @@ var current_games = [];
 var players = [];
 var num_players = 0;
 
+io.configure(function () {
+  io.set("transports", ["xhr-polling"]);
+  io.set("polling duration", 20);
+});
+
 io.on('connection', function(socket) {
   var socket_server;
   var nickname;
