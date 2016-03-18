@@ -144,6 +144,11 @@
       "from": "etag@>=1.7.0 <1.8.0",
       "resolved": "https://registry.npmjs.org/etag/-/etag-1.7.0.tgz"
     },
+    "express": {
+      "version": "4.13.4",
+      "from": "express@*",
+      "resolved": "https://registry.npmjs.org/express/-/express-4.13.4.tgz"
+    },
     "finalhandler": {
       "version": "0.4.1",
       "from": "finalhandler@0.4.1",
