@@ -15,6 +15,7 @@ function createServer() {
 
 }
 
+//Source: https://www.firebase.com/tutorial/#session/n3a80mpvpg9
 var colors = ["fff","000","f00","0f0","00f","88f","f8d","f88","f05","f80","0f8","cf0","08f","408","ff8","8ff"];
 for (c in colors) {
   var item = $("<div/>", {style: "float: top; width: 50px; height: 50px; display: table-cell; border:1px solid black; background-color: #"+colors[c]});
