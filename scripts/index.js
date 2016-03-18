@@ -8,12 +8,12 @@ for (c in colors) {
       currentColor = col;
     };
   })());
-  $("#control_box").append(item);
+  $("#controlBox").append(item);
 }
 
 var save = $("#save");
 save.click(function() {
-  var c = $("#main_canvas").get(0);
+  var c = $("#mainCanvas").get(0);
   var img = new Image;
 
   var a = $("#save");
@@ -28,24 +28,23 @@ $("#nickname").on('keypress', function(e) {
 });
 
 var socket = io();
-socket.on('current_games', function(data) {
+socket.on('currentGames', function(data) {
 //list current server to user
-  data.current_games.forEach(function(server, i, arr) {
+  data.currentGames.forEach(function(server, i, arr) {
     var option = "<option>";
-    $("#server_list").append(option.concat(server.name));
+    $("#serverList").append(option.concat(server.name));
   });
 });
 
 
 //displays game and connects to specified server
 function play() {
-//  var server = $("#server_list")[0].value;
   var nickname = $("#nickname")[0].value;
   if(nickname === '') {
-    $("#error_nickname").css({visibility:"visible"});
+    $("#errorNickname").css({visibility:"visible"});
   }
   else {
-    $("#error_nickname").css({visibility:"hidden"});
-    display_game(nickname);
+    $("#errorNickname").css({visibility:"hidden"});
+    displayGame(nickname);
   }
 }

@@ -1,28 +1,21 @@
-#main_canvas {
-  display: block;
-  background-color: "#FFFFFF";
-}
-
-#canvas_wrapper {
-  visibility: hidden;
-}
-#main_canvas {
-    border: 2px solid black;
-}
-#control_box {
-}
-body{
-  overflow: hidden;
-}
-#main_wrapper {
-
-}
-#error_nickname {
-  visibility: hidden;
-}
 * {
   unselectable: on;
 }
+
+#mainCanvas {
+  display: block;
+  background-color: "#FFFFFF";
+  border: 2px solid black;
+}
+
+#canvasWrapper {
+  visibility: hidden;
+}
+
+#errorNickname {
+  visibility: hidden;
+}
+
 #save {
   float: top;
   width: 50px;
@@ -41,10 +34,11 @@ body{
 body {
   background-color: #F3F4EC;
   font-family: 'Open Sans', 'sans-serif';
+  overflow: hidden;
 }
 
 /* div surrounding login form */
-#main_wrapper {
+#mainWrapper {
   background-color: #CCCFBC;
   opacity: .9;
   height: 280px;

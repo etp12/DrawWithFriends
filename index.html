@@ -6,37 +6,29 @@
 
   <body>
 
-    <div id = "main_wrapper">
-  <!--    <p>Select a room... </p>
-
-   <select id="server_list"></select> -->
-
+    <div id = "mainWrapper">
       <h1> Enter Your Nickname </h1>
       <input type="text" id="nickname"> <br>
-      <p id = "error_nickname"> Please enter a valid nickname! </p>
+      <p id = "errorNickname"> Please enter a valid nickname! </p>
       <button id="play" onclick="play()"> Play </button> <br>
+    </div>
 
-  <!--    New Server: <input type="text" id="server_name"> <br>
-      <button id="new_server" onclick="createServer()"> Create Server </button>
-
--->
-  </div>
-    <div id = "canvas_wrapper">
-
-      <div id= "control_box">
+    <div id = "canvasWrapper">
+      <div id= "controlBox">
         <input type="checkbox" id="smooth" onclick="changeDrawStyle()"> Draw Smooth Lines
         <h3> Press H to clear the screen and G to toggle between smooth and rough strokes! </h3>
         <a id= "save"></a>
       </div>
-      <canvas id = "main_canvas">
+      <canvas id = "mainCanvas">
         Your browser does not support HTML Canvas!
       </canvas>
     </div>
 
-
     <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-    <script src="scripts/client_draw.js"></script>
+    <script src="scripts/clientDraw.js"></script>
     <script src="scripts/index.js"></script>
+    <script src="scripts/socketListeners.js"></script>
+    <script src="scripts/eventListeners.js"></script>
   </body>
 </html>
