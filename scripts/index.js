@@ -30,7 +30,7 @@ for (c in colors) {
 
 //displays game and connects to specified server
 function play() {
-  var server = $("#server_list")[0].value;
+//  var server = $("#server_list")[0].value;
   var nickname = $("#nickname")[0].value;
   if(nickname === '') {
     $("#error_nickname").css({visibility:"visible"});

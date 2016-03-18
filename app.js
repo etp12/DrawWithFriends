@@ -52,8 +52,8 @@ app.get('/', function(req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/style/index.css', function(req, res) {
-  res.sendFile(__dirname + '/style/index.css');
+app.get('/style/main.css', function(req, res) {
+  res.sendFile(__dirname + '/style/main.css');
 });
 
 app.get('/scripts/client_draw.js', function(req, res) {
