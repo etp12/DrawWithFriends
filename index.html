@@ -24,7 +24,8 @@
     <div id = "canvas_wrapper">
 
       <div id= "control_box">
-        <h3> Press H to clear the screen! </h3>
+        <input type="checkbox" id="smooth" onclick="changeDrawStyle()"> Draw Smooth Lines
+        <h3> Press H to clear the screen and G to toggle between smooth and rough strokes! </h3>
         <a id= "save"></a>
       </div>
       <canvas id = "main_canvas">

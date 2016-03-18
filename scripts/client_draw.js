@@ -2,7 +2,7 @@
 
 var canvas = document.getElementById('main_canvas');
 var context = canvas.getContext('2d');
-
+var smoothLines = false;
 var player_cursors = [];
 var num_players = 0;
 var client_name = "YOU";
@@ -10,6 +10,7 @@ var client_id;
 var currentColor = "000000";
 
 function display_game(nickname) {
+
   client_name = nickname;
   socket.emit('player_join', {nickname});
 
@@ -24,6 +25,7 @@ function display_game(nickname) {
     });
   });
   socket.on('currentCanvas', function(data) {
+    blankScreen();
     var img = new Image;
     img.src = data;
     context.drawImage(img, 0, 0);
@@ -37,8 +39,7 @@ function display_game(nickname) {
 
   socket.on('clrScrn', function() {
     console.log($("#main_canvas").height());
-    context.clearRect(0, 0, $("#main_canvas").width(), $("#main_canvas").height());
-
+    blankScreen();
   });
   socket.on('new_player', function(data) {
 
@@ -71,9 +72,8 @@ function display_game(nickname) {
   $("#main_wrapper").remove();
   $("body").css({background:'white'});
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 
 
 $(document).mousemove(function(e) {
@@ -94,29 +94,35 @@ function draw(e) {
   if(isDragging) {
     var rect = canvas.getBoundingClientRect();
     var x1 = e.clientX-rect.left, y1 = e.clientY-rect.top;
-    var x0 = (lastX == null) ? x1 : lastX;
-    var y0 = (lastY == null) ? y1 : lastY;
-    //bresenham? hopefully  http://stackoverflow.com/questions/4672279/bresenham-algorithm-in-javascript
-    var dx = Math.abs(x1-x0);
-    var dy = Math.abs(y1-y0);
-    var sx = (x0 < x1) ? 1 : -1;
-    var sy = (y0 < y1) ? 1 : -1;
-    var err = dx-dy;
+    if(smoothLines) {
+      var x0 = (lastX == null) ? x1 : lastX;
+      var y0 = (lastY == null) ? y1 : lastY;
+      //bresenham? hopefully  http://stackoverflow.com/questions/4672279/bresenham-algorithm-in-javascript
+      var dx = Math.abs(x1-x0);
+      var dy = Math.abs(y1-y0);
+      var sx = (x0 < x1) ? 1 : -1;
+      var sy = (y0 < y1) ? 1 : -1;
+      var err = dx-dy;
 
-while(true){
-  socket.emit('isDrawing', {x: x0, y: y0, color: currentColor});  // Do what you need to for this
+      while(true){
 
-  if ((x0==x1) && (y0==y1)) break;
-  var e2 = 2*err;
-  if (e2 >-dy){ err -= dy; x0  += sx; }
-  if (e2 < dx){ err += dx; y0  += sy; }
-}
+        socket.emit('isDrawing', {x: x0, y: y0, color: currentColor});
+
+        if ((x0==x1) && (y0==y1)) break;
+        var e2 = 2*err;
+        if (e2 >-dy){ err -= dy; x0  += sx; }
+        if (e2 < dx){ err += dx; y0  += sy; }
+      }
 
 
-    //var rect = canvas.getBoundingClientRect();
-    //var left_pos = e.clientX-rect.left, top_pos = e.clientY-rect.top;
-    //socket.emit('isDrawing', {x: left_pos, y: top_pos, color: currentColor});
+      //var rect = canvas.getBoundingClientRect();
+      //var left_pos = e.clientX-rect.left, top_pos = e.clientY-rect.top;
+      //socket.emit('isDrawing', {x: left_pos, y: top_pos, color: currentColor});
   }
+  else {
+    socket.emit('isDrawing', {x: x1, y: y1, color: currentColor});
+  }
+}
   lastX = x1;
   lastY = y1;
 }
@@ -125,6 +131,7 @@ $("#main_canvas").on('mousedown', function(e){isDragging=true; e.preventDefault(
 $("#main_canvas").on('mouseup', function(){isDragging=false; context.beginPath();});
 $("#main_canvas").on('mousemove', draw);
 $(document).keypress(function(e){ if(e.keyCode === 104) socket.emit('clearScreen');});
+$(document).keypress(function(e){ if(e.keyCode === 103) smoothLines = !smoothLines; $("#smooth").attr('checked', smoothLines);});
 $(window).resize(function() {
   var saveImg = canvas.toDataURL();
   var tempImg = new Image;
@@ -134,5 +141,14 @@ $(window).resize(function() {
   context.drawImage(tempImg, 0, 0);
 });
 
+}
+function changeDrawStyle() {
+  smoothLines = $("#smooth").is(":checked");
+  console.log(smoothLines);
+}
 
+function blankScreen() {
+  context.fillStyle = "#FFF";
+  context.clearRect(0, 0, $("#main_canvas").width(), $("#main_canvas").height());
+  context.fillRect(0, 0, $("#main_canvas").width(), $("#main_canvas").width());
 }
