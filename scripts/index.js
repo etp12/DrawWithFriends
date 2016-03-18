@@ -18,7 +18,8 @@ save.click(function() {
 
   var a = $("#save");
   a.attr("href", c.toDataURL());
-  a.attr("download", "test.png");
+  var filename = "DWF-"+(Math.random().toString(36)+'00000000000000000').slice(2, 12)+".png";
+  a.attr("download", filename);
 });
 
 var socket = io();
