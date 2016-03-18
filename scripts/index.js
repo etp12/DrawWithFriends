@@ -22,6 +22,11 @@ save.click(function() {
   a.attr("download", filename);
 });
 
+$("#nickname").on('keypress', function(e) {
+  if(e.keyCode === 13)
+    play();
+});
+
 var socket = io();
 socket.on('current_games', function(data) {
 //list current server to user

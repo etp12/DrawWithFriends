@@ -88,13 +88,37 @@ var offsetTop = $("#canvas_wrapper")[0].offsetTop;
 var offsetLeft = $("#canvas_wrapper")[0].offsetLeft;
 var radius = 10;
 var isDragging = false;
+var lastX, lastY;
 context.lineWidth = radius*2;
 function draw(e) {
   if(isDragging) {
     var rect = canvas.getBoundingClientRect();
-    var left_pos = e.clientX-rect.left, top_pos = e.clientY-rect.top;
-    socket.emit('isDrawing', {x: left_pos, y: top_pos, color: currentColor});
+    var x1 = e.clientX-rect.left, y1 = e.clientY-rect.top;
+    var x0 = (lastX == null) ? x1 : lastX;
+    var y0 = (lastY == null) ? y1 : lastY;
+    //bresenham? hopefully  http://stackoverflow.com/questions/4672279/bresenham-algorithm-in-javascript
+    var dx = Math.abs(x1-x0);
+    var dy = Math.abs(y1-y0);
+    var sx = (x0 < x1) ? 1 : -1;
+    var sy = (y0 < y1) ? 1 : -1;
+    var err = dx-dy;
+
+while(true){
+  socket.emit('isDrawing', {x: x0, y: y0, color: currentColor});  // Do what you need to for this
+
+  if ((x0==x1) && (y0==y1)) break;
+  var e2 = 2*err;
+  if (e2 >-dy){ err -= dy; x0  += sx; }
+  if (e2 < dx){ err += dx; y0  += sy; }
+}
+
+
+    //var rect = canvas.getBoundingClientRect();
+    //var left_pos = e.clientX-rect.left, top_pos = e.clientY-rect.top;
+    //socket.emit('isDrawing', {x: left_pos, y: top_pos, color: currentColor});
   }
+  lastX = x1;
+  lastY = y1;
 }
 
 $("#main_canvas").on('mousedown', function(e){isDragging=true; e.preventDefault();});
