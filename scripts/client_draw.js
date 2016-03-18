@@ -11,9 +11,7 @@ var currentColor = "000000";
 //temporary
 
 
-
 function display_game(nickname) {
-
   client_name = nickname;
   socket.emit('player_join', {nickname});
 
@@ -27,15 +25,24 @@ function display_game(nickname) {
       $("#canvas_wrapper").append(n);
     });
   });
-  socket.on('discon', function(data) {
-    //TODO
-    player_cursors = [];
-    num_players = 0;
-
+  socket.on('currentCanvas', function(data) {
+    console.log("he");
+        console.log(data);
+    var img = new Image;
+    img.src = data;
+    context.drawImage(img, 0, 0);
   });
+  socket.on('getCanvas', function(data) {
+
+    var dataUrl = canvas.toDataURL();
+
+    socket.emit("Canvas", {dataUrl, data});
+  });
+
   socket.on('clrScrn', function() {
     console.log($("#main_canvas").height());
     context.clearRect(0, 0, $("#main_canvas").width(), $("#main_canvas").height());
+
   });
   socket.on('new_player', function(data) {
 
