@@ -32,3 +32,81 @@ body{
   background-image: url("../static/save.png");
   background-size: 100% auto;
 }
+
+/* Google Fonts */
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
+/* sets background image and global font */
+body {
+  background-color: #F3F4EC;
+  font-family: 'Open Sans', 'sans-serif';
+}
+
+/* div surrounding login form */
+#main_wrapper {
+  background-color: #CCCFBC;
+  opacity: .9;
+  height: 280px;
+  width: 400px;
+  border-radius: 10px;
+
+  margin: 0 auto;
+  margin-top: 50px;
+  padding: 0;
+  text-align: center;
+}
+
+/* form header */
+h1 {
+  font-size: 32px;
+  padding: 10px;
+  margin: 0;
+  color: #fff;
+  background-color: #507642;
+  margin-bottom: 15px;
+}
+
+/* text fields */
+input:not([type="button"]) {
+  width: 300px;
+  height: 50px;
+  border-radius: 6px;
+  border: 1px solid #507642;
+  margin-bottom: 15px;
+  text-align: center;
+  -webkit-transition: all .5s;
+  -moz-transition: all .5s;
+  transition: all .5s;
+  font-family: 'Open Sans', 'sans-serif';
+  font-size: 24px;
+}
+
+input:not([type="button"]):focus {
+  color: #507642;
+  width: 370px;
+  border: 1px solid #507642;
+  outline: none;
+}
+
+/* submit button */
+#play {
+  font-size: 32px;
+  color: #fff;
+  background-color: #507642;
+  box-shadow: 0 5px 0 0 #507642;
+  border: none;
+  padding: 10px;
+  width: 400px;
+  display: inline-block;
+  position: relative;
+  outline: none;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+#play:active {
+  box-shadow: 0 1px 0 0 #507642;
+  -webkit-transform: translate(0,5px);
+  -moz-transform: translate(0,5px);
+  transform: translate(0,5px);
+}

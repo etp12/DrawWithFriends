@@ -8,8 +8,6 @@ var num_players = 0;
 var client_name = "YOU";
 var client_id;
 var currentColor = "000000";
-//temporary
-
 
 function display_game(nickname) {
   client_name = nickname;
@@ -66,18 +64,12 @@ function display_game(nickname) {
     var y  = data.data.y;
     context.fillStyle = "#"+data.data.color;
     context.fillRect(x,y,10,10);
-//    context.lineTo(x, y);
-//    context.stroke();
-//    context.beginPath();
-//    context.arc(x, y, radius, 0, Math.PI*2);
-//    context.fill();
-//    context.beginPath();
-    //context.moveTo(x, y);
   });
 
   $("#canvas_wrapper").css({visibility:'visible'});
   $("#main_wrapper").css({visibility:'hidden'});
-
+  $("#main_wrapper").remove();
+  $("body").css({background:'white'});
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
