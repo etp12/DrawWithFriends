@@ -21,6 +21,14 @@ app.get('/scripts/index.js', function(req, res) {
   res.sendFile(__dirname + '/scripts/index.js');
 });
 
+app.get('/scripts/gameSetup.js', function(req, res) {
+  res.sendFile(__dirname + '/scripts/gameSetup.js');
+});
+
+app.get('/static/save.png', function(req, res) {
+  res.sendFile(__dirname + '/static/save.png');
+});
+
 var port = (process.env.PORT || '3000');
 app.set('port', port);
 

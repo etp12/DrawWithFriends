@@ -1,5 +1,6 @@
 #main_canvas {
   display: block;
+  background-color: "#FFFFFF";
 }
 
 #canvas_wrapper {
@@ -9,7 +10,6 @@
     border: 2px solid black;
 }
 #control_box {
-
 }
 body{
   overflow: hidden;
@@ -22,4 +22,13 @@ body{
 }
 * {
   unselectable: on;
+}
+#save {
+  float: top;
+  width: 50px;
+  height: 50px;
+  display: table-cell;
+  border:1px solid black;
+  background-image: url("../static/save.png");
+  background-size: 100% auto;
 }

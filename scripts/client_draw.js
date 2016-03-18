@@ -26,8 +26,6 @@ function display_game(nickname) {
     });
   });
   socket.on('currentCanvas', function(data) {
-    console.log("he");
-        console.log(data);
     var img = new Image;
     img.src = data;
     context.drawImage(img, 0, 0);
@@ -111,7 +109,14 @@ $("#main_canvas").on('mousedown', function(e){isDragging=true; e.preventDefault(
 $("#main_canvas").on('mouseup', function(){isDragging=false; context.beginPath();});
 $("#main_canvas").on('mousemove', draw);
 $(document).keypress(function(e){ if(e.keyCode === 104) socket.emit('clearScreen');});
-$(window).resize(function() {canvas.width = window.innerWidth; canvas.height = window.innerHeight;});
+$(window).resize(function() {
+  var saveImg = canvas.toDataURL();
+  var tempImg = new Image;
+  tempImg.src = saveImg;
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  context.drawImage(tempImg, 0, 0);
+});
 
 
 }
