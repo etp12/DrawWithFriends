@@ -8,15 +8,23 @@ socket.on('current_games', function(data) {
   });
 });
 
-
-socket.on('update_mouse', function(data) {
-
-});
 function createServer() {
 //creates a new server creation request
   var server_name = $("#server_name")[0].value;
   socket.emit('create_server', {server_name});
 
+}
+
+var colors = ["fff","000","f00","0f0","00f","88f","f8d","f88","f05","f80","0f8","cf0","08f","408","ff8","8ff"];
+for (c in colors) {
+  var item = $("<div/>", {style: "float: top; width: 50px; height: 50px; display: table-cell; border:1px solid black; background-color: #"+colors[c]});
+  item.click((function() {
+    var col = colors[c];
+    return function() {
+      currentColor = col;
+    };
+  })());
+  $("#control_box").append(item);
 }
 
 //displays game and connects to specified server

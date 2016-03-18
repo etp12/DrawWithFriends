@@ -26,6 +26,10 @@ io.on('connection', function(socket) {
     num_players++;
   });
 
+  socket.on('clearScreen', function() {
+    io.emit('clrScrn');
+  });
+
   socket.on('mousemove', function(data) {
     var name = data.client_name;
     var left_pos = data.left_pos;

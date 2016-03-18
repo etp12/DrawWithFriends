@@ -5,6 +5,12 @@
 #canvas_wrapper {
   visibility: hidden;
 }
+#main_canvas {
+    border: 2px solid black;
+}
+#control_box {
+
+}
 body{
   overflow: hidden;
 }
