@@ -26,10 +26,13 @@ function display_game(nickname) {
     });
   });
   socket.on('currentCanvas', function(data) {
+    console.log(data);
+    var img = new Image;
+    img.src = data;
     blankScreen(function() {
-      var img = new Image;
-      img.src = data;
+
       context.drawImage(img, 0, 0);
+
     });
   });
   socket.on('getCanvas', function(data) {
@@ -161,6 +164,5 @@ function blankScreen(callback) {
   context.fillStyle = "#FFF";
   context.clearRect(0, 0, $("#main_canvas").width(), $("#main_canvas").height());
   context.fillRect(0, 0, $("#main_canvas").width(), $("#main_canvas").width());
-  if(callback != null)
-    callback();
+  setTimeout(callback, 500);
 }
