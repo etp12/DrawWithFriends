@@ -1,6 +1,7 @@
 module.exports = function(io, hashmap) {
   var currentGames = ['Default'];
-  var sockets = new hashmap();
+  var sockets = new hashmap(); //Nickname : Socket
+  var IdMap = new hashmap();
   var servers = new hashmap(); //Server Name : Array of sockets
   servers.set('Default', []);
   var numPlayers = 0;
@@ -11,6 +12,16 @@ module.exports = function(io, hashmap) {
     this.nickname = name;
   };
   io.on('connection', function(socket) {
+    socket.on('reset', function(data) {
+      currentGames = ['Default'];
+      sockets = new hashmap(); //Nickname : Socket
+      IdMap = new hashmap();
+      servers = new hashmap(); //Server Name : Array of sockets
+      servers.set('Default', []);
+      numPlayers = 0;
+      currentImg = 0;
+      players = [];
+    });
     console.log('servers: '+servers.keys());
     var client;
     var nickname;
@@ -105,7 +116,6 @@ module.exports = function(io, hashmap) {
            tArray.splice(removeI, 1);
            servers.set(socketServer, tArray);
          }
-         console.log(servers.get(socketServer));
           servers.get(socketServer).forEach(function(client) {
             client.socket.emit('dicon', {nickname});
           });
@@ -115,6 +125,10 @@ module.exports = function(io, hashmap) {
             io.emit('currentGames', {currentGames});
           }
         }
+        servers.get(socketServer).forEach(function(client) {
+          players.push(client.nickname);
+        });
+        socket.emit('otherPlayers', {players});
       }
     });
   });
