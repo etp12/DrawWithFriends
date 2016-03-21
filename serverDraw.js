@@ -1,7 +1,8 @@
 module.exports = function(io, hashmap) {
-  var currentGames = [];
+  var currentGames = ['Default'];
   var sockets = new hashmap();
   var servers = new hashmap(); //Server Name : Array of sockets
+  servers.set('Default', []);
   var numPlayers = 0;
   var currentImg = 0;
   var players = [];
@@ -108,7 +109,7 @@ module.exports = function(io, hashmap) {
           servers.get(socketServer).forEach(function(client) {
             client.socket.emit('dicon', {nickname});
           });
-          if(servers.get(socketServer).length === 0) {
+          if(servers.get(socketServer).length === 0 && socketServer != 'Default') {
             servers.remove(socketServer);
             currentGames = servers.keys();
             io.emit('currentGames', {currentGames});

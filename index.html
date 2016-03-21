@@ -10,13 +10,13 @@
       <h1> Enter Your Nickname </h1>
       <input type="text" id="nickname"> <br>
       Select Room <br>
-      <select id="serverList"></select>
+      <select id="serverList"></select> <br>
+      Create New Room <br>
+      <input type="text" id="createServer"> <br>
+      <button id="createServerBtn" onclick="createServer()"> Create </button> <br>
       <p id = "errorNickname"> Please enter a valid nickname! </p>
       <p id = "errorServerName"> Please enter a valid room name! </p>
       <button id="play" onclick="play()"> Play </button> <br> <br>
-      Create Room <br>
-      <input type="text" id="createServer"> <br>
-      <button id="createServerBtn" onclick="createServer()"> Create </button> <br>
     </div>
 
     <div id = "canvasWrapper">
