@@ -1,32 +1,55 @@
 module.exports = function(io, hashmap) {
   var currentGames = [];
   var sockets = new hashmap();
+  var servers = new hashmap(); //Server Name : Array of sockets
   var numPlayers = 0;
   var currentImg = 0;
-  var players;
-
+  var players = [];
+  var clientObj = function(socket, name) {
+    this.socket = socket;
+    this.nickname = name;
+  };
   io.on('connection', function(socket) {
-    var socketServer;
+    console.log('servers: '+servers.keys());
+    var client;
     var nickname;
-
+    var socketServer;
     //send player current games TODO
     socket.emit('currentGames', {currentGames});
-
+    socket.on('createServer', function(data) {
+      if(servers.keys().indexOf(data.serverName) != -1) {
+        socket.emit('invalidServerName');
+      }
+      else {
+        servers.set(data.serverName, []);
+        socket.emit('validServerName');
+      }
+      currentGames = servers.keys();
+      socket.emit('currentGames', {currentGames});
+    });
     //on player join save their name and insert into hashmap with their socket
     //then send them the other players, the current canvas, and let everyone know there is a new player
     socket.on('playerJoin', function(data) {
+      client = new clientObj(socket, data.nickname);
+      socketServer = data.serverName;
       nickname = data.nickname;
+      var canvasReq;
       sockets.set(nickname, socket);
-      socket.emit('id', {numPlayers});
-      players = sockets.keys();
-
-      if(numPlayers > 0) {
-        socket.emit('otherPlayers', {players});
-        var s = sockets.values();
-
-        s[0].emit('getCanvas', {nickname});
+      servers.get(socketServer).forEach(function(client) {
+        players.push(client.nickname);
+      });
+      var otherPlay = servers.get(socketServer);
+      otherPlay.push(client);
+      servers.set(socketServer, otherPlay);
+      socket.emit('id', servers.get(socketServer).length);
+      socket.emit('otherPlayers', {players});
+      servers.get(socketServer).forEach(function(client) {
+        client.socket.emit('newPlayer', {numPlayers, nickname});
+      });
+      if(players.length > 0) {
+        var ind = (players.length > 1) ? players.length-2 : 0;
+        servers.get(socketServer)[ind].socket.emit('getCanvas', {nickname});
       }
-      io.emit('newPlayer', {numPlayers, nickname});
 
       numPlayers++;
     });
@@ -39,7 +62,9 @@ module.exports = function(io, hashmap) {
 
     //someone wants to clear the screen
     socket.on('clearScreen', function() {
-      io.emit('clrScrn');
+      servers.get(socketServer).forEach(function(client) {
+        client.socket.emit('clrScrn');
+      });
     });
 
     //someone moved their mouse, let everyone else know who and where
@@ -47,22 +72,47 @@ module.exports = function(io, hashmap) {
       var name = data.clientName;
       var leftPos = data.leftPos;
       var topPos = data.topPos;
-      io.emit('updateMouse', {name, leftPos, topPos});
+      servers.get(socketServer).forEach(function(client) {
+        client.socket.emit('updateMouse', {name, leftPos, topPos});
+      });
     });
 
     //someone is drawing, let everyone else know
     socket.on('isDrawing', function(data) {
-      io.emit('updateScreen', {data});
+      servers.get(socketServer).forEach(function(client) {
+        client.socket.emit('updateScreen', {data});
+      });
     });
 
     //someone disconnected, try to remove them from hashmap and let everyone know who d/c'd
-    socket.on('disconnect', function() {
-      if(sockets.get(nickname) != null) {
+    socket.on('disconnect', function(socket) {
+      if(sockets.get(nickname) != null && socketServer != null) {
         sockets.remove(nickname);
-        if(numPlayers > 0)
-          numPlayers--;
+        var tArray = [];
+        var removeI;
+       if(servers.get(socketServer) != null) {
+         tArray = servers.get(socketServer);
+         console.log(nickname);
+         console.log(tArray);
+         tArray.forEach(function(ele, i) {
+           if(ele.nickname == nickname) {
+             removeI = i;
+           }
+         });
+         if(removeI != null) {
+           tArray.splice(removeI, 1);
+           servers.set(socketServer, tArray);
+         }
+         console.log(servers.get(socketServer));
+          servers.get(socketServer).forEach(function(client) {
+            client.socket.emit('dicon', {nickname});
+          });
+          if(servers.get(socketServer).length === 0) {
+            servers.remove(socketServer);
+          }
+        }
       }
-      io.emit('discon', {nickname});
     });
   });
+
 }

@@ -13,11 +13,11 @@ var offsetTop = $("#canvasWrapper")[0].offsetTop;
 var offsetLeft = $("#canvasWrapper")[0].offsetLeft;
 var isDragging = false;
 var lastX, lastY;
-function displayGame(nickname) {
+function displayGame(nickname, serverName) {
 
   //store nickname and tell it to server
   clientName = nickname;
-  socket.emit('playerJoin', {nickname});
+  socket.emit('playerJoin', {nickname, serverName});
 
   //register SocketIO listeners
   socketListen();

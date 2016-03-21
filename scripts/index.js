@@ -30,21 +30,29 @@ $("#nickname").on('keypress', function(e) {
 var socket = io();
 socket.on('currentGames', function(data) {
 //list current server to user
+console.log(data);
+
   data.currentGames.forEach(function(server, i, arr) {
     var option = "<option>";
-    $("#serverList").append(option.concat(server.name));
+    $("#serverList").append(option.concat(server));
   });
 });
 
+function createServer() {
+  console.log('creating');
+  var serverName = $("#createServer")[0].value;
+  socket.emit('createServer', {serverName});
 
+}
 //displays game and connects to specified server
 function play() {
+  var serverName = $("#serverList :selected").text();
   var nickname = $("#nickname")[0].value;
   if(nickname === '') {
     $("#errorNickname").css({visibility:"visible"});
   }
   else {
     $("#errorNickname").css({visibility:"hidden"});
-    displayGame(nickname);
+    displayGame(nickname, serverName);
   }
 }

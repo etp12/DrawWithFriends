@@ -8,13 +8,32 @@ var socketListen = function() {
   //list of other players so we can generate tags for them
   socket.on('otherPlayers', function(data) {
     data.players.forEach(function(p) {
-      var n = $("<p id='"+p+"'>" + p + " </p>");
-      $("#canvasWrapper").append(n);
+      playerCursors.push($("<p id='"+p+"'>" + p + " </p>"));
+      playerCursors.forEach(function(ele) {
+        $("#canvasWrapper").append(ele);
+      });
     });
   });
 
+  socket.on('dicon', function(data) {
+    console.log('someone d/cd');
+    var removeI;
+    playerCursors.forEach(function(ele, i) {
+      if(ele.attr('id') == data.nickname) {
+        removeI = i;
+        return;
+      }
+    });
+    if(removeI != null) {
+      playerCursors.splice(removeI, 1);
+      playerCursors.forEach(function(ele) {
+        $("#canvasWrapper").append(ele);
+      });
+    }
+  });
   //get the current canvas on connect if there is one
   socket.on('currentCanvas', function(data) {
+    console.log('getting canvas');
     var img = new Image;
     img.src = data;
     blankScreen(function() {
