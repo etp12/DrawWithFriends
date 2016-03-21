@@ -38,7 +38,8 @@ module.exports = function(io, hashmap) {
       servers.get(socketServer).forEach(function(client) {
         players.push(client.nickname);
       });
-      var otherPlay = servers.get(socketServer);
+      var canv, otherPlay = servers.get(socketServer);
+      canv = servers.get(socketServer);
       otherPlay.push(client);
       servers.set(socketServer, otherPlay);
       socket.emit('id', servers.get(socketServer).length);
@@ -48,7 +49,7 @@ module.exports = function(io, hashmap) {
       });
       if(players.length > 0) {
         var ind = (players.length > 1) ? players.length-2 : 0;
-        servers.get(socketServer)[ind].socket.emit('getCanvas', {nickname});
+        canv[ind].socket.emit('getCanvas', {nickname});
       }
 
       numPlayers++;
@@ -109,6 +110,8 @@ module.exports = function(io, hashmap) {
           });
           if(servers.get(socketServer).length === 0) {
             servers.remove(socketServer);
+            currentGames = servers.keys();
+            io.emit('currentGames', {currentGames});
           }
         }
       }

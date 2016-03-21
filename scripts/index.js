@@ -31,17 +31,24 @@ var socket = io();
 socket.on('currentGames', function(data) {
 //list current server to user
 console.log(data);
-
+  var len = data.currentGames.length;
+  $("#serverList").empty();
   data.currentGames.forEach(function(server, i, arr) {
     var option = "<option>";
     $("#serverList").append(option.concat(server));
   });
+  $("#serverList")[0].selectedIndex=(len-1);
 });
 
 function createServer() {
   console.log('creating');
   var serverName = $("#createServer")[0].value;
-  socket.emit('createServer', {serverName});
+  if(serverName === '')
+    $("#errorServerName").css({visibility:"visible"});
+  else if(serverName.includes(' '))
+    $("#errorServerName").css({visibility:"visible"});
+  else
+    socket.emit('createServer', {serverName});
 
 }
 //displays game and connects to specified server

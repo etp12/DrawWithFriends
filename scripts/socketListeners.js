@@ -44,6 +44,7 @@ var socketListen = function() {
   //the server wants the host to send the current canvas
   socket.on('getCanvas', function(data) {
     var dataUrl = canvas.toDataURL();
+    console.log('sending my canvas');
     socket.emit("Canvas", {dataUrl, data});
   });
 

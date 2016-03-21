@@ -12,7 +12,7 @@
   visibility: hidden;
 }
 
-#errorNickname {
+#errorNickname, #errorServerName {
   visibility: hidden;
 }
 
@@ -62,7 +62,7 @@ h1 {
 }
 
 /* text fields */
-#nickname {
+#nickname, #createServer {
   width: 300px;
   height: 50px;
   border-radius: 6px;
@@ -76,7 +76,7 @@ h1 {
   font-size: 24px;
 }
 
-#nickname:focus {
+#nickname:focus, #createServer:focus {
   color: #507642;
   width: 370px;
   border: 1px solid #507642;
@@ -84,7 +84,7 @@ h1 {
 }
 
 /* submit button */
-#play {
+#play, #createServerBtn {
   font-size: 32px;
   color: #fff;
   background-color: #507642;
