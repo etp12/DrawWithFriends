@@ -98,7 +98,7 @@ module.exports = function(io, hashmap) {
     });
 
     //someone disconnected, try to remove them from hashmap and let everyone know who d/c'd
-    socket.on('disconnect', function(socket) {
+    socket.on('disconnect', function(s) {
       if(sockets.get(nickname) != null && socketServer != null) {
         sockets.remove(nickname);
         var tArray = [];
