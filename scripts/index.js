@@ -40,6 +40,12 @@ socket.on('currentGames', function(data) {
   $("#serverList")[0].selectedIndex=(len-1);
 });
 
+//easier than pressing the play button
+$("#nickname").on('keypress', function(e) {
+  if(e.keyCode === 13)
+    play();
+});
+
 //attmpets to register a new room with the server
 function createServer() {
   var serverName = $("#createServer")[0].value;

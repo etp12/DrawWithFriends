@@ -33,9 +33,4 @@ var eventListen = function() {
   //check if we're moving the mouse
   $("#mainCanvas").on('mousemove', draw);
 
-  //easier than pressing the play button
-  $("#nickname").on('keypress', function(e) {
-    if(e.charCode === 13)
-      play();
-  });
 };
