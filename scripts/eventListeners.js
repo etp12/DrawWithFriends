@@ -11,10 +11,10 @@ var eventListen = function() {
   });
 
   //press H to clear screen
-  $(document).keypress(function(e){ if(e.keyCode === 104) socket.emit('clearScreen');});
+  $(document).keypress(function(e){ if(e.charCode === 104) socket.emit('clearScreen');});
 
   //press G to switch draw styles
-  $(document).keypress(function(e){ if(e.keyCode === 103) smoothLines = !smoothLines; $("#smooth").attr('checked', smoothLines);});
+  $(document).keypress(function(e){ if(e.charCode === 103) smoothLines = !smoothLines; $("#smooth").attr('checked', smoothLines);});
 
   //tell the server we're moving our mouse
   $(document).mousemove(function(e) {
