@@ -23,7 +23,6 @@ module.exports = function(io, hashmap) {
       currentImg = 0;
       players = [];
     });
-    console.log('servers: '+servers.keys());
     var client;
     var nickname;
     var socketServer;
@@ -110,8 +109,6 @@ module.exports = function(io, hashmap) {
         var removeI;
        if(servers.get(socketServer) != null) {
          tArray = servers.get(socketServer);
-         console.log(nickname);
-         console.log(tArray);
          tArray.forEach(function(ele, i) {
            if(ele.nickname == nickname) {
              removeI = i;

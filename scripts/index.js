@@ -31,7 +31,6 @@ save.click(function() {
 var socket = io();
 socket.on('currentGames', function(data) {
 //list current server to user
-console.log(data);
   var len = data.currentGames.length;
   $("#serverList").empty();
   data.currentGames.forEach(function(server, i, arr) {
@@ -43,7 +42,6 @@ console.log(data);
 
 //attmpets to register a new room with the server
 function createServer() {
-  console.log('creating');
   var serverName = $("#createServer")[0].value;
   if(serverName === '')
     $("#errorServerName").css({visibility:"visible"});

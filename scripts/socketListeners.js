@@ -18,7 +18,6 @@ var socketListen = function() {
   });
 
   socket.on('dicon', function(data) {
-    console.log('someone d/cd');
     var removeI;
     playerCursors.forEach(function(ele, i) {
       if(ele.attr('id') == data.nickname) {
@@ -35,7 +34,6 @@ var socketListen = function() {
   });
   //get the current canvas on connect if there is one
   socket.on('currentCanvas', function(data) {
-    console.log('getting canvas');
     var img = new Image;
     img.src = data;
     blankScreen(function() {
@@ -46,7 +44,6 @@ var socketListen = function() {
   //the server wants the host to send the current canvas
   socket.on('getCanvas', function(data) {
     var dataUrl = canvas.toDataURL();
-    console.log('sending my canvas');
     socket.emit("Canvas", {dataUrl, data});
   });
 
