@@ -60,8 +60,12 @@ module.exports = function(io, hashmap) {
         client.socket.emit('newPlayer', {numPlayers, nickname});
       });
       if(players.length > 0) {
-        var ind = (players.length > 1) ? players.length-2 : 0;
-        canv[ind].socket.emit('getCanvas', {nickname});
+        servers.get(socketServer).forEach(function(client, i) {
+          if(client.socket != socket) {
+            client.socket.emit('getCanvas', {nickname});
+            return;
+          }
+        });
       }
 
       numPlayers++;
