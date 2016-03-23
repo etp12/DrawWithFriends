@@ -1,8 +1,12 @@
+//Author: Ethan Pavolik  etp12@pitt.edu
 var app = require('express')();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
+var favicon = require('serve-favicon');
 var hashmap = require('hashmap');
 var serverDraw = require('./serverDraw.js')(io, hashmap);
+
+app.use(favicon(__dirname + '/static/favicon.ico'));
 
 app.get('/', function(req, res) {
   res.sendFile(__dirname + '/index.html');

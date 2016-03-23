@@ -1,3 +1,4 @@
+//Author: Ethan Pavolik  etp12@pitt.edu
 var eventListen = function() {
   //onresize save the canvas and redraw after resize is finished
   $(window).resize(function() {
@@ -31,4 +32,10 @@ var eventListen = function() {
 
   //check if we're moving the mouse
   $("#mainCanvas").on('mousemove', draw);
+
+  //easier than pressing the play button
+  $("#nickname").on('keypress', function(e) {
+    if(e.charCode === 13)
+      play();
+  });
 };

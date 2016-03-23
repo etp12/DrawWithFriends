@@ -1,3 +1,5 @@
+//Author: Ethan Pavolik  etp12@pitt.edu
+
 //contains the listeners for our Socket connection
 var socketListen = function() {
   //our id given by the server

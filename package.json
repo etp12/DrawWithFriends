@@ -4,8 +4,9 @@
   "description": "Multiplayer drawing app with socket.io",
   "main": "app.js",
   "dependencies": {
-    "socket.io": "^1.4.5",
-    "express": "^4.13.4"
+    "express": "^4.13.4",
+    "serve-favicon": "^2.3.0",
+    "socket.io": "^1.4.5"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

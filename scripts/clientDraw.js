@@ -1,5 +1,6 @@
-//client-sided draw logic
+//Author: Ethan Pavolik  etp12@pitt.edu
 
+//client-sided draw logic
 var canvas = document.getElementById('mainCanvas');
 var context = canvas.getContext('2d');
 var smoothLines = false;

@@ -1,3 +1,4 @@
+//Author: Ethan Pavolik  etp12@pitt.edu
 module.exports = function(io, hashmap) {
   var currentGames = ['Default'];
   var sockets = new hashmap(); //Nickname : Socket

@@ -1,4 +1,8 @@
+//Author: Ethan Pavolik  etp12@pitt.edu
+//This file contains misc javascript to construct the page
+
 //Source: https://www.firebase.com/tutorial/#session/n3a80mpvpg9
+//sets up the utility buttons while drawing
 var colors = ["fff","000","f00","0f0","00f","88f","f8d","f88","f05","f80","0f8","cf0","08f","408","ff8","8ff"];
 for (c in colors) {
   var item = $("<div/>", {style: "float: top; width: 50px; height: 50px; display: table-cell; border:1px solid black; background-color: #"+colors[c]});
@@ -11,6 +15,7 @@ for (c in colors) {
   $("#controlBox").append(item);
 }
 
+//save button
 var save = $("#save");
 save.click(function() {
   var c = $("#mainCanvas").get(0);
@@ -22,11 +27,7 @@ save.click(function() {
   a.attr("download", filename);
 });
 
-$("#nickname").on('keypress', function(e) {
-  if(e.keyCode === 13)
-    play();
-});
-
+//create socket object and grab the current rooms
 var socket = io();
 socket.on('currentGames', function(data) {
 //list current server to user
@@ -40,6 +41,7 @@ console.log(data);
   $("#serverList")[0].selectedIndex=(len-1);
 });
 
+//attmpets to register a new room with the server
 function createServer() {
   console.log('creating');
   var serverName = $("#createServer")[0].value;
