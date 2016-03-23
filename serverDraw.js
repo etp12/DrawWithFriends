@@ -37,7 +37,7 @@ module.exports = function(io, hashmap) {
         socket.emit('validServerName');
       }
       currentGames = servers.keys();
-      socket.emit('currentGames', {currentGames});
+      io.emit('currentGames', {currentGames});
     });
     //on player join save their name and insert into hashmap with their socket
     //then send them the other players, the current canvas, and let everyone know there is a new player
@@ -103,7 +103,7 @@ module.exports = function(io, hashmap) {
 
     //someone disconnected, try to remove them from hashmap and let everyone know who d/c'd
     socket.on('disconnect', function(s) {
-      if(sockets.get(nickname) != null && socketServer != null) {
+      if(socketServer != null) {
         sockets.remove(nickname);
         var tArray = [];
         var removeI;
@@ -129,10 +129,12 @@ module.exports = function(io, hashmap) {
             io.emit('currentGames', {currentGames});
           }
         }
+        if(servers.get(socketServer) != null) { //check again after potential delete
         servers.get(socketServer).forEach(function(client) {
           players.push(client.nickname);
         });
         socket.emit('otherPlayers', {players});
+        }
       }
     });
   });
