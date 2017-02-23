@@ -16,6 +16,10 @@ app.get('/style/main.css', function(req, res) {
   res.sendFile(__dirname + '/style/main.css');
 });
 
+app.get('/style/loginPage.css', function(req, res) {
+  res.sendFile(__dirname + '/style/loginPage.css');
+});
+
 app.get('/scripts/clientDraw.js', function(req, res) {
   res.sendFile(__dirname + '/scripts/clientDraw.js');
 });

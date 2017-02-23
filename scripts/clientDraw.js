@@ -28,8 +28,8 @@ function displayGame(nickname, serverName) {
 
   //set the draw screen
   $("#canvasWrapper").css({visibility:'visible'});
-  $("#mainWrapper").css({visibility:'hidden'});
-  $("#mainWrapper").remove();
+  $("#serverSelection").css({visibility:'hidden'});
+  $("#serverSelection").remove();
   $("body").css({background:'white'});
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;

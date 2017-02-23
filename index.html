@@ -1,29 +1,49 @@
 <!DOCTYPE html>
+<html lang="en">
   <head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="A multiplayer drawing app! Create your own room where you and your friends can draw together!" />
     <meta name="keywords" content="drawing, games, multiplayer, draw, art" />
     <meta name="author" content="Ethan Pavolik">
     <title> Draw With Friends! </title>
-    <link rel="stylesheet" href="style/main.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="style/loginPage.css">
+		<link rel="stylesheet" href="style/main.css">
   </head>
 
   <body>
-    <div id = "mainWrapper">
-      <h1> Enter Your Nickname </h1>
-      <input type="text" id="nickname"> <br>
-      Select Room <br>
-      <select id="serverList"></select> <br>
-      <br>
-      OR
-      <br>
-      <br>
-      Create New Room <br>
-      <input type="text" id="createServer"> <br>
-      <button id="createServerBtn" onclick="createServer()"> Create </button> <br>
-      <p id = "errorNickname"> Please enter a valid nickname! </p>
-      <p id = "errorServerName"> Please enter a valid room name! </p>
-      <button id="play" onclick="play()"> Play </button> <br> <br>
-    </div>
+		<div class="container" id="serverSelection">
+				<div class="row">
+						<div class="col-md-4 col-md-offset-4">
+								<div class="login-panel panel panel-default">
+										<div class="panel-heading">
+												<h3 class="panel-title">Draw With Friends</h3>
+										</div>
+										<div class="panel-body">
+
+														<fieldset>
+															<h2> Join Existing Room </h2>
+															<div class="form-group">
+																	<select id="serverList" class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+															</div>
+																<div class="form-group">
+																		<input class="form-control" placeholder="nickname" id="nickname" type="text" autofocus>
+																</div>
+																<button class="btn btn-lg btn-success btn-block" id="play" onclick="play()"> Play </button>
+																<h2> Create New Room </h2>
+																<div class="form-group">
+																		<input class="form-control" placeholder="Room Name" id="createServer" type="text" value="">
+																</div>
+																<button class="btn btn-lg btn-success btn-block" id="createServerBtn" onclick="createServer()"> Create Server </button>
+														</fieldset>
+
+										</div>
+								</div>
+						</div>
+				</div>
+		</div>
 
     <div id = "canvasWrapper">
       <div id= "controlBox">
@@ -36,7 +56,9 @@
       </canvas>
     </div>
 
-    <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     <script src="scripts/clientDraw.js"></script>
     <script src="scripts/index.js"></script>
